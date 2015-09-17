@@ -8,3 +8,6 @@ This repository contains my completed assignments for my Web Applications Develo
 ### Languages / Concepts
 - PHP
 - HTML5
+
+### Third Party Resources
+- [PureCSS Framework](http://www.purecss.io)
