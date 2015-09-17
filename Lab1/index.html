@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Deposit Calculator</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <link href="css/style.css" rel="stylesheet">
+    <link href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Deposit Calculator</h1>
+
+        <form class="pure-form pure-form-aligned" action="DepositCalculator.php" method="post">
+            <fieldset>
+                <div class="pure-control-group">
+                    <label for="principalAmount">Principal Amount:</label>
+                    <input id="principalAmount" name="principalAmount" type="text" autofocus>
+                </div>
+
+                <div class="pure-control-group">
+                    <label for="interestRate">Interest Rate (%):</label>
+                    <input id="interestRate" name="interestRate" type="text">
+                </div>
+
+                <div class="pure-control-group">
+                    <label for="depositDuration">Years to deposit:</label>
+
+                    <select id="depositDuration" name="depositDuration">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
+
+                <hr>
+
+                <div class="pure-control-group">
+                    <label for="name">Name:</label>
+                    <input id="name" name="name" type="text">
+                </div>
+
+                <div class="pure-control-group">
+                    <label for="phone">Phone Number:</label>
+                    <input id="phone" name="phone" type="tel">
+                </div>
+
+                <div class="pure-control-group">
+                    <label for="email">Email Address:</label>
+                    <input id="email" name="email" type="email">
+                </div>
+
+                <div class="pure-control-group">
+                    <label for="preferredContact">Preferred contact method:</label>
+                    <input id="preferredContactPhone" name="preferredContact" type="radio" value="Phone"> Phone
+                    <input id="preferredContactEmail" name="preferredContact" type="radio" value="Email"> Email
+                </div>
+
+                <div class="pure-control-group">
+                    <label for="contactTimeChoice">Preferred contact time (check applicable):</label>
+                    <input id="contactTimeMorning" name="contactTimeChoice[]" type="checkbox" value="Morning"> Morning
+                    <input id="contactTimeAfternoon" name="contactTimeChoice[]" type="checkbox" value="Afternoon"> Afternoon
+                    <input id="contactTimeEvening" name="contactTimeChoice[]" type="checkbox" value="Evening"> Evening
+                </div>
+
+                <div class="pure-controls">
+                    <button type="submit" class="submit pure-button pure-button-primary">Calculate</button>
+                </div>
+
+            </fieldset>
+        </form>
+    </div>
+
+</body>
+
+</html>
