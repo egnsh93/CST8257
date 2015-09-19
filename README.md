@@ -3,6 +3,9 @@
 **Disclaimer: Code published to this repository is to be used for educational purposes only.**
 
 ### Description
+
+Fall 2015 Semester:
+
 This repository contains my completed assignments for my Web Applications Development course. The contents will be updated as I progress through the semester.
 
 ### Languages / Concepts
