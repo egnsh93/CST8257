@@ -1,14 +1,14 @@
 <?php
 
     // Extract the submitted data into variables
-    $principalAmount = $_POST['principalAmount'];
-    $interestRate = $_POST['interestRate'];
-    $depositDuration = $_POST['depositDuration'];
-    $name = $_POST['name'];
-    $phone = $_POST['phone'];
-    $email = $_POST['email'];
-    $preferredContact = $_POST['preferredContact'];
-    $contactTime = $_POST['contactTimeChoice'];
+    $principalAmount = isset($_POST['principalAmount']) ? $_POST['principalAmount'] : '';
+    $interestRate = isset($_POST['interestRate']) ? $_POST['interestRate'] : '';
+    $depositDuration = isset($_POST['depositDuration']) ? $_POST['depositDuration'] : '';
+    $name = isset($_POST['name']) ? $_POST['name'] : '';
+    $phone = isset($_POST['phone']) ? $_POST['phone'] : '';
+    $email = isset($_POST['email']) ? $_POST['email'] : '';
+    $preferredContact = isset($_POST['preferredContact']) ? $_POST['preferredContact'] : '' ;
+    $contactTime = isset($_POST['contactTimeChoice']) ? $_POST['contactTimeChoice'] : '';
 
 ?>
 
@@ -83,7 +83,7 @@
             <tr>
                 <td>Preferred Contact Time:</td>
                 <td>
-                    <?= implode(", ", $_POST['contactTimeChoice']) ?>
+                    <?= implode(", ", $contactTime) ?>
                 </td>
             </tr>
         </table>

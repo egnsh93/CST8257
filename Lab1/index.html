@@ -20,18 +20,18 @@
             <fieldset>
                 <div class="pure-control-group">
                     <label for="principalAmount">Principal Amount:</label>
-                    <input id="principalAmount" name="principalAmount" type="text" autofocus>
+                    <input id="principalAmount" name="principalAmount" type="text" autofocus required>
                 </div>
 
                 <div class="pure-control-group">
                     <label for="interestRate">Interest Rate (%):</label>
-                    <input id="interestRate" name="interestRate" type="text">
+                    <input id="interestRate" name="interestRate" type="text" required>
                 </div>
 
                 <div class="pure-control-group">
                     <label for="depositDuration">Years to deposit:</label>
 
-                    <select id="depositDuration" name="depositDuration">
+                    <select id="depositDuration" name="depositDuration" required>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -49,23 +49,23 @@
 
                 <div class="pure-control-group">
                     <label for="name">Name:</label>
-                    <input id="name" name="name" type="text">
+                    <input id="name" name="name" type="text" required>
                 </div>
 
                 <div class="pure-control-group">
                     <label for="phone">Phone Number:</label>
-                    <input id="phone" name="phone" type="tel">
+                    <input id="phone" name="phone" type="tel" required>
                 </div>
 
                 <div class="pure-control-group">
                     <label for="email">Email Address:</label>
-                    <input id="email" name="email" type="email">
+                    <input id="email" name="email" type="email" required>
                 </div>
 
                 <div class="pure-control-group">
                     <label for="preferredContact">Preferred contact method:</label>
-                    <input id="preferredContactPhone" name="preferredContact" type="radio" value="Phone"> Phone
-                    <input id="preferredContactEmail" name="preferredContact" type="radio" value="Email"> Email
+                    <input id="preferredContactPhone" name="preferredContact" type="radio" value="Phone" required> Phone
+                    <input id="preferredContactEmail" name="preferredContact" type="radio" value="Email" required> Email
                 </div>
 
                 <div class="pure-control-group">
