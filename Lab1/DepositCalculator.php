@@ -1,14 +1,22 @@
 <?php
 
-    // Extract the submitted data into variables
-    $principalAmount = isset($_POST['principalAmount']) ? $_POST['principalAmount'] : '';
-    $interestRate = isset($_POST['interestRate']) ? $_POST['interestRate'] : '';
-    $depositDuration = isset($_POST['depositDuration']) ? $_POST['depositDuration'] : '';
-    $name = isset($_POST['name']) ? $_POST['name'] : '';
-    $phone = isset($_POST['phone']) ? $_POST['phone'] : '';
-    $email = isset($_POST['email']) ? $_POST['email'] : '';
-    $preferredContact = isset($_POST['preferredContact']) ? $_POST['preferredContact'] : '' ;
-    $contactTime = isset($_POST['contactTimeChoice']) ? $_POST['contactTimeChoice'] : '';
+    /* Get POST data and run it through a function that cleans user input */
+    $principalAmount = clean_input($_POST['principalAmount']);
+    $interestRate = clean_input($_POST['interestRate']);
+    $depositDuration = $_POST['depositDuration'];
+    $name = clean_input($_POST['name']);
+    $phone = clean_input($_POST['phone']);
+    $email = clean_input($_POST['email']);
+    $preferredContact = $_POST['preferredContact'];
+    $contactTime = $_POST['contactTimeChoice'];
+
+    /* This function cleans input fields and ensures safe submission */
+    function clean_input($data) {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+    }
 
 ?>
 
