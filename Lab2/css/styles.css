@@ -1,0 +1,16 @@
+.wrap {
+    width: 85%;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+h1 {
+    font-size: 28px;
+}
+
+.panel {
+    padding: 15px 20px;
+    background-color: #f7f7f9;
+    border: 2px solid #e1e1e8;
+    border-radius: 6px;
+}
