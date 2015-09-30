@@ -6,7 +6,7 @@
 
 Fall 2015 Semester:
 
-This repository contains my completed assignments for my Web Applications Development course. The contents will be updated as I progress through the semester.
+This repository contains my completed assignments for my Web Applications Development course. The contents will be updated as I progress through the semester. Some of the labs had specific implementation requirements and therefore, not all code presented here represents my particular coding style, or my particular approach to solving a problem.
 
 ### Languages / Concepts
 - PHP
