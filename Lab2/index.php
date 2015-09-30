@@ -1,11 +1,14 @@
 <?php
+
+    /* Get the submitted menu choice */
     $menuChoice = isset($_POST["menuChoice"]) ? $_POST["menuChoice"] : '';
 
+    /* Redirect to the appropriate loop page based on the menu choice */
     switch ($menuChoice)
     {
         case 1:
             header("Location: for.php");
-            die();
+            die(); // Stop execution of all code after this line
             break;
 
         case 2:
