@@ -43,6 +43,19 @@ class CourseRepository implements CourseRepositoryInterface {
 
 		return $courses;
 	}
+
+	public static function GetById($id) {
+		// First, get all courses
+		$courses = self::GetAll();
+
+		// Then look for a specific course by Id
+		foreach ($courses as $course) {
+			if ($course->getId() == $id) {
+				return $course;
+			}
+		}
+		return false;
+	}
 }
 
 ?>
