@@ -18,9 +18,13 @@ if (isset($_POST["submit"])) {
 	// Create a student from the data
 	$student = new Student($username, $phone, $postal, $pass, $courses);
 
-	// Redirect to result page
+	// Store the student object in the session
+	session_start();
+	$_SESSION["student"] = $student;
 
-	var_dump($student);
+	// Redirect to result page
+	header("Location: results.php");
+	die(); // Stop execution of all code after this line
 
 }
 
