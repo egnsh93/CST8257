@@ -1,0 +1,7 @@
+<?php
+
+static class Validator {
+	
+}
+
+?>
