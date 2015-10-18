@@ -1,5 +1,9 @@
 <?php
 
+/* Load required class files */
+require_once(dirname(__FILE__) . "/Course.php");
+require_once(dirname(__FILE__) . "/../Data_Access/CourseRepository.php");
+
 class Student {
 	protected $username;
 	protected $phone;
@@ -72,6 +76,22 @@ class Student {
     public function getCourses()
     {
         return $this->courses;
+    }
+
+    public function getTotalWeeklyHours() {
+        $total = 0;
+        $selectedCourses = array();
+
+        // Get an array of selected courses
+        foreach ($this->getCourses() as $courseId) {
+            array_push($selectedCourses, CourseRepository::GetById($courseId));
+        }
+
+        // Iterate through the array and sum the weekly hours
+        foreach ($selectedCourses as $course) {
+            $total += $course->getHours();
+        }
+        return $total;
     }
 }
 
