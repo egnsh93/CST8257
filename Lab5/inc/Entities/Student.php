@@ -6,9 +6,6 @@ require_once(dirname(__FILE__) . "/../Data_Access/CourseRepository.php");
 
 class Student {
 	protected $username;
-	protected $phone;
-	protected $postal;
-	protected $password;
 	protected $courses;
 
     /**
@@ -19,12 +16,9 @@ class Student {
      * password
      * list of courses
      */
-	public function __construct($username, $phone, $postal, $password, $courses)
+	public function __construct($username, $courses)
 	{
 		$this->username = $username;
-		$this->phone = $phone;
-		$this->postal = $postal;
-		$this->password = $password;
 		$this->courses = $courses;
 	}
 
@@ -36,36 +30,6 @@ class Student {
     public function getUsername()
     {
         return $this->username;
-    }
-
-    /**
-     * Gets the value of phone.
-     *
-     * @return string
-     */
-    public function getPhone()
-    {
-        return $this->phone;
-    }
-
-    /**
-     * Gets the value of postal.
-     *
-     * @return string
-     */
-    public function getPostal()
-    {
-        return $this->postal;
-    }
-
-    /**
-     * Gets the value of password.
-     *
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->password;
     }
 
     /**
