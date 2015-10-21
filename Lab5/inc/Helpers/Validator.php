@@ -2,16 +2,16 @@
 
 class Validator {
     /* Checks to see if there are elements in an array */
-    static function has_items($data) {
-        return count($data) > 0 ? true : false;
+    public function has_items($data) {
+        return count($data);
     }
 
-    static function error_to_string($rule, $label = null) {
+    public function error_to_string($rule, $label = null) {
         return $label . " " . $rule;
     }
 
     /* Check if a field is null or an empty string */
-    static function is_valid($data) {
+    public function is_valid($data) {
         if ( is_null($data) )
             return false;
         if ( $data == "" )
@@ -19,17 +19,17 @@ class Validator {
         return true;
     }
 
-    static function is_phone($data) {
+    public function is_phone($data) {
         // Matches phone numbers in the format of (NNN) NNN-NNNN
         return preg_match("/^\(\d{3}\)\s\d{3}-\d{4}$/", $data) ? true : false;
     }
 
-    static function is_postal($data) {
+    public function is_postal($data) {
         // Matches postal codes in the format of A1A 1A1, with or without spaces, case insensitive
         return preg_match("/^[A-Za-z]\d[A-Za-z][ ]?\d[A-Za-z]\d$/", $data) ? true : false;
     }
 
-    static function is_strong_pass($data) {
+    public function is_strong_pass($data) {
         $rule_upper = '/[A-Z]/';
         $rule_lower = '/[a-z]/';
         $rule_numeric = '/\d/';
@@ -44,7 +44,7 @@ class Validator {
         return true;
     }
 
-    static function compare($str1, $str2) {
+    public function compare($str1, $str2) {
         if ($str1 !== $str2)
             return false;
         return true;

@@ -24,6 +24,7 @@ $rules = array(
     'hours_max' => 'Selected course hours cannot exceed 20 hours per week'
 );
 
+$val = new Validator();
 $error_flag = false;
 $rule = "";
 $totalHours = 0;
@@ -44,12 +45,12 @@ if (isset($_POST["submit"])) {
         $totalHours += $course->getHours();
     }
 
-    if (!Validator::is_valid($username) ||
-        !Validator::is_phone($phone) ||
-        !Validator::is_postal($postal) ||
-        !Validator::is_strong_pass($pass) ||
-        !Validator::compare($pass, $confirmPass) ||
-        !Validator::has_items($courses) ||
+    if (!$val->is_valid($username) ||
+        !$val->is_phone($phone) ||
+        !$val->is_postal($postal) ||
+        !$val->is_strong_pass($pass) ||
+        !$val->compare($pass, $confirmPass) ||
+        !$val->has_items($courses) ||
         $totalHours < 10 || $totalHours > 20) {
             $error_flag = true;
     }
@@ -101,8 +102,8 @@ if (isset($_POST["submit"])) {
                             <label for="username" class="col-sm-2 control-label">Username</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" name="username" placeholder="Username" value="<?= $username; ?>">
-                                <?php if (!Validator::is_valid($username) && isset($_POST["submit"])) : ?>
-                                    <span class="text-danger"><?= Validator::error_to_string($rules['empty']); ?></span>
+                                <?php if (!$val->is_valid($username) && isset($_POST["submit"])) : ?>
+                                    <span class="text-danger"><?= $val->error_to_string($rules['empty']); ?></span>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -110,8 +111,8 @@ if (isset($_POST["submit"])) {
                             <label for="phone" class="col-sm-2 control-label">Phone</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" name="phone" placeholder="(nnn) nnn-nnnn" value="<?= $phone; ?>">
-                                <?php if (!Validator::is_phone($phone) && isset($_POST["submit"])) : ?>
-                                    <span class="text-danger"><?= Validator::error_to_string($rules['valid_phone']); ?></span>
+                                <?php if (!$val->is_phone($phone) && isset($_POST["submit"])) : ?>
+                                    <span class="text-danger"><?= $val->error_to_string($rules['valid_phone']); ?></span>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -119,8 +120,8 @@ if (isset($_POST["submit"])) {
                             <label for="postal" class="col-sm-2 control-label">Postal Code</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" name="postal" placeholder="A1A 1A1" value="<?= $postal; ?>">
-                                <?php if (!Validator::is_postal($postal) && isset($_POST["submit"])) : ?>
-                                    <span class="text-danger"><?= Validator::error_to_string($rules['valid_postal']); ?></span>
+                                <?php if (!$val->is_postal($postal) && isset($_POST["submit"])) : ?>
+                                    <span class="text-danger"><?= $val->error_to_string($rules['valid_postal']); ?></span>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -129,8 +130,8 @@ if (isset($_POST["submit"])) {
                             <div class="col-sm-10">
                                 <small>6+ characters, 1+ uppercase letter, 1+ lowercase letter, 1+ numeric character and one non-alphanumeric character.</small>
                                 <input type="text" class="form-control" name="pass" placeholder="Password" value="<?= $pass; ?>">
-                                <?php if (!Validator::is_strong_pass($pass) && isset($_POST["submit"])) : ?>
-                                    <span class="text-danger"><?= Validator::error_to_string($rules['strong_pass']); ?></span>
+                                <?php if (!$val->is_strong_pass($pass) && isset($_POST["submit"])) : ?>
+                                    <span class="text-danger"><?= $val->error_to_string($rules['strong_pass']); ?></span>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -138,8 +139,8 @@ if (isset($_POST["submit"])) {
                             <label for="confirmPass" class="col-sm-2 control-label">Re-enter Password</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" name="confirmPass" placeholder="Re-enter password" value="<?= $confirmPass; ?>">
-                                <?php if (!Validator::compare($pass, $confirmPass) && isset($_POST["submit"])) : ?>
-                                    <span class="text-danger"><?= Validator::error_to_string($rules['pass_match']); ?></span>
+                                <?php if (!$val->compare($pass, $confirmPass) && isset($_POST["submit"])) : ?>
+                                    <span class="text-danger"><?= $val->error_to_string($rules['pass_match']); ?></span>
                                 <?php endif; ?>
                             </div>
                         </div>
