@@ -129,7 +129,7 @@ if (isset($_POST["submit"])) {
                             <label for="pass" class="col-sm-2 control-label">Password</label>
                             <div class="col-sm-10">
                                 <small>6+ characters, 1+ uppercase letter, 1+ lowercase letter, 1+ numeric character and one non-alphanumeric character.</small>
-                                <input type="text" class="form-control" name="pass" placeholder="Password" value="<?= $pass; ?>">
+                                <input type="password" class="form-control" name="pass" placeholder="Password" value="<?= $pass; ?>">
                                 <?php if (!$val->is_strong_pass($pass) && isset($_POST["submit"])) : ?>
                                     <span class="text-danger"><?= $val->error_to_string($rules['strong_pass']); ?></span>
                                 <?php endif; ?>
@@ -138,7 +138,7 @@ if (isset($_POST["submit"])) {
                         <div class="form-group">
                             <label for="confirmPass" class="col-sm-2 control-label">Re-enter Password</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="confirmPass" placeholder="Re-enter password" value="<?= $confirmPass; ?>">
+                                <input type="password" class="form-control" name="confirmPass" placeholder="Re-enter password" value="<?= $confirmPass; ?>">
                                 <?php if (!$val->compare($pass, $confirmPass) && isset($_POST["submit"])) : ?>
                                     <span class="text-danger"><?= $val->error_to_string($rules['pass_match']); ?></span>
                                 <?php endif; ?>
