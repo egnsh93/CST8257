@@ -1,25 +1,17 @@
 <?php
 
 class Validator {
-
-    /* Trim the inputted data, strip slashes, and convert html tags to entity codes */
-    static function sanitize($data) {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
-    }
     /* Checks to see if there are elements in an array */
     static function has_items($data) {
-        return count($data) > 0 ? true : false;   
+        return count($data) > 0 ? true : false;
     }
 
     static function error_to_string($rule, $label = null) {
         return $label . " " . $rule;
     }
 
-	/* Check if a field is null or an empty string */
-	static function is_valid($data) {
+    /* Check if a field is null or an empty string */
+    static function is_valid($data) {
         if ( is_null($data) )
             return false;
         if ( $data == "" )
@@ -49,7 +41,7 @@ class Validator {
         if (preg_match_all($rule_numeric, $data) < 1) return false;
         if (preg_match_all($rule_special, $data) < 1) return false;
 
-        return true;        
+        return true;
     }
 
     static function compare($str1, $str2) {
