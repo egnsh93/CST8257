@@ -16,7 +16,8 @@ define("THUMB_MAX_HEIGHT", 100);
 
 // Hold on to upload errors
 $errors = [];
-$files = [];
+
+// Store the image output type
 $outputImage = "";
 
 // Allowed file types
