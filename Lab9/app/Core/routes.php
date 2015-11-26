@@ -12,8 +12,14 @@ use Core\Router;
 use Helpers\Hooks;
 
 /** Define routes. */
-Router::any('', 'Controllers\Home@index');
-Router::any('subpage', 'Controllers\Home@subPage');
+Router::any('Home', 'Controllers\Pages@index');
+Router::any('Courses', 'Controllers\Course@index');
+Router::any('RegisteredCourses', 'Controllers\Course@getById');
+Router::any('About', 'Controllers\Pages@about');
+
+Router::any('Login', 'Controllers\Account@login');
+Router::any('Register', 'Controllers\Account@Register');
+
 
 /** Module routes. */
 $hooks = Hooks::get();
