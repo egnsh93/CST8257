@@ -21,6 +21,10 @@ class Course extends Controller
     public function __construct()
     {
         parent::__construct();
+
+        // On page load, redirect if not logged in
+        if (\Helpers\Session::get('loggedin') == false)
+            \Helpers\Url::redirect('Login');
     }
 
     /**
