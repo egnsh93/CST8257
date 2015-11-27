@@ -14,13 +14,16 @@ use Core\Controller;
 
 class Pages extends Controller
 {
-
     /**
      * Call the parent construct
      */
     public function __construct()
     {
         parent::__construct();
+
+        // On page load, redirect if not logged in
+        if (\Helpers\Session::get('loggedin') == false)
+            \Helpers\Url::redirect('Login');
     }
 
     /**
