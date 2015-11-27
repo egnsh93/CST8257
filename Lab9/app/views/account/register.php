@@ -44,6 +44,7 @@ use Core\Language;
 					<div class="form-group">
 						<label for="student_id">Password:</label>
 						<input type="password" name="student_password" id="student_password" class="form-control input-lg" placeholder="Password" tabindex="4">
+						<a data-toggle="modal" href="#passwordRequirements">Password requirements</a>
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6 col-md-6">
@@ -55,9 +56,37 @@ use Core\Language;
 			</div>	
 			<hr class="colorgraph">
 			<div class="row">
-				<div class="col-xs-12 col-md-6"><input type="submit" name="submit" value="Create Account" class="btn btn-primary btn-block btn-lg" tabindex="6"></div>
-				<div class="col-xs-12 col-md-6"><a href="/Lab9/Login" class="btn btn-success btn-block btn-lg" tabindex="7">Sign In</a></div>
+				<div class="col-xs-12 col-md-6">
+					<label for="submit">&nbsp;</label>
+					<input type="submit" name="submit" value="Create Account" class="btn btn-primary btn-block btn-lg" tabindex="6">
+				</div>
+				<div class="col-xs-12 col-md-6">
+					<label>Already registered?</label>
+					<a href="/Lab9/Login" class="btn btn-success btn-block btn-lg" tabindex="7">Sign In</a>
+				</div>
 			</div>
 		</form>
+
+		<!-- Modal -->
+		<div class="modal fade" id="passwordRequirements" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4>Strong password requirements</h4>
+					</div>
+					<div class="modal-body">
+						<ul>
+							<li>At least six characters in length</li>
+							<li>Contain at least one uppercase letter</li>
+							<li>Contain at least one lowercase letter</li>
+							<li>Contain at least one digit</li>
+							<li>Contain at least one non-alphanumeric character</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
