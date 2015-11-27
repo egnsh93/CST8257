@@ -20,4 +20,11 @@ class Account extends Model
 		$this->db->insert("student", $student);
 		return $this->db->lastInsertId('StudentId');
 	}
+
+	public function getStudentName($id) {
+		return $this->db->select("SELECT Name FROM " . "student WHERE StudentId = :id",
+			array(
+				':id' => $id
+			));
+	}
 }
