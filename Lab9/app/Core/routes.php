@@ -18,8 +18,8 @@ Router::any('RegisteredCourses', 'Controllers\Course@getById');
 Router::any('About', 'Controllers\Pages@about');
 
 Router::any('Login', 'Controllers\Account@login');
+Router::any('Logout', 'Controllers\Account@logout');
 Router::any('Register', 'Controllers\Account@register');
-
 
 /** Module routes. */
 $hooks = Hooks::get();
