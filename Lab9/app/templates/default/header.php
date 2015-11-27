@@ -66,6 +66,11 @@ $hooks->run('afterBody');
                     <li>
                         <a href="/Lab9/About/">About</a>
                     </li>
+                    <?php if (\Helpers\Session::get('loggedin')) : ?>
+                    <li>
+                        <a href="/Lab9/Logout">Logout</a>
+                    </li>
+                    <?php endif; ?>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
