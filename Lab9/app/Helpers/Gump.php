@@ -540,7 +540,7 @@ class GUMP
                     $resp[] = "The <span class=\"$field_class\">$field</span> field needs to contain a valid human name";
                     break;
                 case 'validate_contains':
-                    $resp[] = "The <span class=\"$field_class\">$field</span> field needs to contain one of these values: ".implode(', ', $param);
+                    $resp[] = "The <span class=\"$field_class\">$field</span> field does not match";
                     break;
                 case 'validate_contains_list':
                     $resp[] = "The <span class=\"$field_class\">$field</span> field needs contain a value from its drop down list";
@@ -2034,13 +2034,7 @@ class GUMP
      *
      * Examples:
      *
-     *  555-555-5555: valid
-     *  5555425555: valid
-     *  555 555 5555: valid
-     *  1(519) 555-4444: valid
-     *  1 (519) 555-4422: valid
-     *  1-555-555-5555: valid
-     *  1-(555)-555-5555: valid
+     *  (519) 555-4422: valid
      */
     protected function validate_phone_number($field, $input, $param = null)
     {
@@ -2048,7 +2042,7 @@ class GUMP
             return;
         }
 
-        $regex = '/^(\d[\s-]?)?[\(\[\s-]{0,2}?\d{3}[\)\]\s-]{0,2}?\d{3}[\s-]?\d{4}$/i';
+        $regex = '/^\(\d{3}\)\s\d{3}-\d{4}$/i';
         if (!preg_match($regex, $input[$field])) {
             return array(
           'field' => $field,
