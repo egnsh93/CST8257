@@ -26,6 +26,7 @@ $hooks = Hooks::get();
 	<?php
 	Assets::css(array(
 		'//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css',
+        '//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css',
 		Url::templatePath() . 'css/style.css',
 	));
 
@@ -41,7 +42,7 @@ $hooks->run('afterBody');
 ?>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-inverse" role="navigation">
+    <nav class="navbar navbar-default" role="navigation">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
