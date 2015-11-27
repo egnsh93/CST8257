@@ -74,6 +74,15 @@ class Account extends Controller
     }
 
     /**
+     * Handle account logout, session destory
+     */
+    public function logout()
+    {
+        \Helpers\Session::destroy();
+        \Helpers\Url::redirect('Home');
+    }
+
+    /**
      * Handle account registrations and view rendering
      */
     public function register()
@@ -96,9 +105,11 @@ class Account extends Controller
                 'student_id'    => 'required|numeric|min_len,5',
                 'student_name'    => 'required|alpha_space',
                 'student_phone'       => 'required|phone_number',
-                'student_password'      => 'required|min_len,6',
-                'student_password_confirmation' => 'required|min_len,6'
+                'student_password'      => 'required',
+                'student_password_confirmation' => 'required|contains,' . $_POST['student_password']
             ));
+
+            // |regex,/^\S*(?=\S{6,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/
 
             // Define validation filters
             $validator->filter_rules(array(
@@ -129,7 +140,7 @@ class Account extends Controller
 
                 $id = $this->account->insertStudent($student_data);
 
-                $data['success'] = "Student created successfully. Please login to continue";
+                $data['success'] = "Student created successfully. Please Sign In to continue";
 
             } else {
                 // Set errors
