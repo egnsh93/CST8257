@@ -21,6 +21,7 @@ class Course extends Controller
     public function __construct()
     {
         parent::__construct();
+        $this->course = new \Models\Course();
 
         // On page load, redirect if not logged in
         if (\Helpers\Session::get('loggedin') == false)
@@ -33,7 +34,8 @@ class Course extends Controller
     public function index()
     {
         $data['title'] = 'Course Selection';
-        $data['welcome_message'] = 'Welcome to the homepage';
+        $data['student_name'] = \Helpers\Session::get('Name');
+        $data['course_list'] = $this->course->getCourseOfferings();
 
         View::renderTemplate('header', $data);
         View::render('course/selection', $data);
