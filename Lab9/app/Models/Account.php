@@ -9,6 +9,13 @@ class Account extends Model
         parent::__construct();
     }
 
+    public function studentExists($id) {
+		return $this->db->select("SELECT StudentId FROM " . "student WHERE StudentId = :id",
+			array(
+				':id' => $id
+			));
+    }
+
     public function getStudentHash($id) {
 		return $this->db->select("SELECT StudentId, Name, Password FROM " . "student WHERE StudentId = :id",
 			array(
@@ -19,12 +26,5 @@ class Account extends Model
 	public function insertStudent($student) {
 		$this->db->insert("student", $student);
 		return $this->db->lastInsertId('StudentId');
-	}
-
-	public function getStudentName($id) {
-		return $this->db->select("SELECT Name FROM " . "student WHERE StudentId = :id",
-			array(
-				':id' => $id
-			));
 	}
 }
