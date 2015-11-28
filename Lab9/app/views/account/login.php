@@ -17,8 +17,8 @@ use Core\Language;
 				<div class="errors">
 					<div class="alert alert-danger" role="alert">
 						<ul class="fa-ul">
-							<?php foreach ($error as $err) : ?>
-							<li><i class="fa-li fa fa-fw fa-exclamation-circle"></i><?= $err ?></li>
+							<?php foreach ($error as $err => $value) : ?>
+							<li><i class="fa-li fa fa-fw fa-exclamation-circle"></i><?= $value ?></li>
 							<?php endforeach; ?>
 						</ul>
 					</div>
