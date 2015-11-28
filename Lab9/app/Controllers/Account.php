@@ -38,29 +38,43 @@ class Account extends Controller
         // If the login form is submitted
         if (isset($_POST['submit'])) {
 
-            // Retrieve user hash from database
-            $currentUser = $this->account->getStudentHash($_POST['student_id']);
+            // Login input validation filters
+            $is_valid = \Helpers\Gump::is_valid($_POST, array(
+                'student_id' => 'required|numeric',
+                'student_password' => 'required'
+            ));
 
-            // If user exists
-            if ($currentUser) {
-                
-                // Compare hash against the provided password
-                if (\Helpers\Password::verify($_POST['student_password'], $currentUser[0]->Password)) {
+            // If login inputs are valid
+            if ($is_valid === true) {
 
-                    // Passwords match, create a session with user info
-                    \Helpers\Session::set('StudentId', $currentUser[0]->StudentId );
-                    \Helpers\Session::set('Name', $currentUser[0]->Name);
-                    \Helpers\Session::set('loggedin', true);
+                // Retrieve user hash from database
+                $currentUser = $this->account->getStudentHash($_POST['student_id']);
 
-                    // Redirect to course selection page
-                    \Helpers\Url::redirect('Courses');
+                // If user exists
+                if ($currentUser) {
+                    
+                    // Compare hash against the provided password
+                    if (\Helpers\Password::verify($_POST['student_password'], $currentUser[0]->Password)) {
+
+                        // Passwords match, create a session with user info
+                        \Helpers\Session::set('StudentId', $currentUser[0]->StudentId );
+                        \Helpers\Session::set('Name', $currentUser[0]->Name);
+                        \Helpers\Session::set('loggedin', true);
+
+                        // Redirect to course selection page
+                        \Helpers\Url::redirect('Courses');
+
+                    } else {
+                        $error[] = 'Incorrect Student ID / Password';
+                    }
 
                 } else {
-                    $error[] = 'Incorrect Student ID / Password';
+                    $error[] = "No account was found with your user ID";
                 }
 
             } else {
-                $error[] = "No account was found with your user ID";
+                // Set errors
+                $error = $is_valid;
             }
         }
 
@@ -100,51 +114,61 @@ class Account extends Controller
             // Sanitize post data
             $_POST = $validator->sanitize($_POST);
 
-            // Define custom validation rules
-            $validator->validation_rules(array(
-                'student_id'    => 'required|numeric|min_len,5',
-                'student_name'    => 'required|alpha_space',
-                'student_phone'       => 'required|phone_number',
-                'student_password'      => 'required',
-                'student_password_confirmation' => 'required|contains,' . $_POST['student_password']
-            ));
+            // Check if the student exists
+            $studentExists = $this->account->studentExists($_POST['student_id']);
 
-            // |regex,/^\S*(?=\S{6,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/
+            // If user does not exists
+            if (!$studentExists) {
 
-            // Define validation filters
-            $validator->filter_rules(array(
-                'student_id'    => 'trim|sanitize_string',
-                'student_name'    => 'trim|sanitize_string',
-                'student_phone'       => 'trim|sanitize_string',
-                'student_password'      => 'trim',
-                'student_password_confirmation' => 'trim'
-            ));
+                // Define custom validation rules
+                $validator->validation_rules(array(
+                    'student_id'    => 'required|numeric|min_len,5',
+                    'student_name'    => 'required|alpha_space',
+                    'student_phone'       => 'required|phone_number',
+                    'student_password'      => 'required',
+                    'student_password_confirmation' => 'required|contains,' . $_POST['student_password']
+                ));
 
-            // Validate all the data
-            $validated_data = $validator->run($_POST);
+                // |regex,/^\S*(?=\S{6,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/
 
-            // If data is valid
-            if ($validated_data) {
+                // Define validation filters
+                $validator->filter_rules(array(
+                    'student_id'    => 'trim|sanitize_string',
+                    'student_name'    => 'trim|sanitize_string',
+                    'student_phone'       => 'trim|sanitize_string',
+                    'student_password'      => 'trim',
+                    'student_password_confirmation' => 'trim'
+                ));
 
-                // Create password hash
-                $password = $_POST['student_password'];
-                $hash = \Helpers\Password::make($password);
+                // Validate all the data
+                $validated_data = $validator->run($_POST);
 
-                // Insert student into DB
-                $student_data = array(
-                    'StudentId' => $_POST['student_id'],
-                    'Name' => $_POST['student_name'],
-                    'Phone' => $_POST['student_phone'],
-                    'Password' => $hash,
-                );
+                // If data is valid
+                if ($validated_data) {
 
-                $id = $this->account->insertStudent($student_data);
+                    // Create password hash
+                    $password = $_POST['student_password'];
+                    $hash = \Helpers\Password::make($password);
 
-                $data['success'] = "Student created successfully. Please Sign In to continue";
+                    // Insert student into DB
+                    $student_data = array(
+                        'StudentId' => $_POST['student_id'],
+                        'Name' => $_POST['student_name'],
+                        'Phone' => $_POST['student_phone'],
+                        'Password' => $hash,
+                    );
 
+                    $id = $this->account->insertStudent($student_data);
+
+                    $data['success'] = "Student created successfully. Please Sign In to continue";
+
+                } else {
+                    // Set errors
+                    $error = $validator->get_readable_errors(false);
+                }
+                
             } else {
-                // Set errors
-                $error = $validator->get_readable_errors(false);
+                $error[] = 'Student with ID already exists';
             }
         }
 
