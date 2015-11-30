@@ -14,7 +14,8 @@ use Helpers\Hooks;
 /** Define routes. */
 Router::any('Home', 'Controllers\Pages@index');
 Router::any('Courses', 'Controllers\Course@index');
-Router::any('RegisteredCourses', 'Controllers\Course@getById');
+Router::any('Confirmation', 'Controllers\Course@confirmation');
+Router::any('RegisteredCourses', 'Controllers\Course@listing');
 Router::any('About', 'Controllers\Pages@about');
 
 Router::any('Login', 'Controllers\Account@login');
