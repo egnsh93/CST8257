@@ -33,25 +33,118 @@ class Course extends Controller
      */
     public function index()
     {
+        // Get the selected offering year
+        $offeringYear = $_POST['courseId'];
+
+        // Set view data
         $data['title'] = 'Course Selection';
         $data['student_name'] = \Helpers\Session::get('Name');
-        $data['course_list'] = $this->course->getCourseOfferings();
+        $data['javascript'] = array('course');
+        $data['course_list'] = $this->course->getCourseOfferings($offeringYear);
 
+        // If form has been submitted
+        if (isset($_POST['submit'])) {
+
+            $selectedYear = $_POST['yearDropdown'];
+            $courses = $_POST['courses'];
+
+            \Helpers\Session::set('OfferingYear', $selectedYear);
+
+            // If an offering year has been selected
+            if ($selectedYear) {
+
+                // If at least one course has been selected
+                if (count($courses)) {
+
+                    // Store the selected courses in the user's session
+                    \Helpers\Session::set('SelectedCourses', $courses);
+
+                    // Redirect to course confirmation page page
+                    \Helpers\Url::redirect('Confirmation');
+
+                } else {
+                    $error[] = 'You must select at least one course';
+                }
+
+            } else {
+                $error[] = 'You must select an offering year';
+            }
+
+        }
+
+        // Render view
         View::renderTemplate('header', $data);
-        View::render('course/selection', $data);
+        View::render('course/selection', $data, $error);
         View::renderTemplate('footer', $data);
     }
 
     /**
-     * Define about page title and load template files
+     * Course confirmation handling 
      */
-    public function getById()
+    public function confirmation() {
+
+        // Set view data
+        $name = \Helpers\Session::get('Name');
+        $offeringYear = \Helpers\Session::get('OfferingYear');
+        $data['title'] = "{$name}, please review your course selection for the year {$offeringYear}";
+        $data['selected_courses'] = \Helpers\Session::get('SelectedCourses');
+
+        // Iterate through each course offering code
+        foreach ($data['selected_courses'] as $offering) {
+
+            // Extract the offering values
+            $id = explode("_", $offering)[0];
+            $semester = explode("_", $offering)[1];
+            $year = explode("_", $offering)[2];
+
+            // Push the offering to an array
+            $data['courses'][] = $this->course->getCourseOffering($id, $semester, $year);
+        }
+
+        // If the confirm page has been submitted
+        if (isset($_POST['submit'])) {
+
+            // Get the current users ID
+            $student_id = \Helpers\Session::get('StudentId');
+
+           // Iterate through each course offering code
+            foreach ($data['selected_courses'] as $offering) {
+
+                // Extract the offering values
+                $id = explode("_", $offering)[0];
+                $semester = explode("_", $offering)[1];
+                $year = explode("_", $offering)[2];
+
+                $semester_id = substr($year, 2) . substr($semester, 0, 1);
+
+                // Register the student into the courses
+                $this->course->insertStudentIntoOffering($student_id, $id, $semester_id);
+            }
+
+            // Redirect to current registration
+            \Helpers\Url::redirect('RegisteredCourses');
+        }
+
+        // Render view
+        View::renderTemplate('header', $data);
+        View::render('course/confirmation', $data);
+        View::renderTemplate('footer', $data);
+    }
+
+    /**
+     * User's Registered Courses
+     */
+    public function listing()
     {
-        $data['title'] = 'User\'s Courses';
+        // Set view data
+        $student_name = \Helpers\Session::get('Name');
+        $student_id = \Helpers\Session::get('StudentId');
+        $data['title'] = 'Registered Courses for ' . $student_name;
 
-        $data['welcome_message'] = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam aliquet nunc nec lectus convallis aliquam. Fusce suscipit pretium ipsum. Sed sollicitudin non nulla eget pharetra. Curabitur ut lectus diam. Proin sed maximus nibh, in maximus turpis. Sed laoreet euismod consequat. Phasellus vel imperdiet ligula. Praesent ultricies magna eget enim gravida sagittis.
-<br><br>Phasellus id condimentum dolor, venenatis tempus justo. Donec vel porttitor neque, eget iaculis erat. Curabitur odio erat, suscipit id urna et, porta gravida justo. Phasellus facilisis pellentesque dolor id euismod. Mauris tincidunt felis vel dictum viverra. Donec non urna a leo cursus porta. Morbi magna tortor, cursus nec diam sed, egestas ornare nibh. In malesuada consequat eros eu rutrum. Nulla ante purus, feugiat scelerisque eleifend pulvinar, venenatis a tellus. In sit amet ullamcorper eros. Nulla vitae elit quis neque tincidunt aliquam. Aliquam a ex iaculis, accumsan ligula sit amet, finibus nisl.';
+        // Get a list of courses registered to a student ID
+        $data['registered_courses'] = $this->course->getStudentCourses($student_id);
 
+        // Render the view
         View::renderTemplate('header', $data);
         View::render('course/list', $data);
         View::renderTemplate('footer', $data);
