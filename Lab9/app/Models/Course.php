@@ -22,14 +22,16 @@ class Course extends Model
 				':offeringYear' => $year
 			));
     }
-
+    
     public function getCourseOfferings($offeringYear) {
 		return $this->db->select("
 			SELECT course.CourseCode, course.Title, course.WeeklyHours, semester.YearNum, semester.Term
 			FROM course 
 			INNER JOIN courseoffer ON course.CourseCode = courseoffer.CourseCode
 			INNER JOIN semester ON courseoffer.SemesterCode = semester.SemesterCode
-			WHERE semester.YearNum = :offeringYear",
+			LEFT OUTER JOIN studentcourseregistration
+			ON course.CourseCode = studentcourseregistration.CourseCode AND courseoffer.SemesterCode = studentcourseregistration.SemesterCode
+			WHERE semester.YearNum = :offeringYear AND studentcourseregistration.SemesterCode IS NULL AND studentcourseregistration.CourseCode IS NULL",
 			array(
 				':offeringYear' => $offeringYear
 			));
