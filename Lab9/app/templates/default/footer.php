@@ -13,6 +13,15 @@ $hooks = Hooks::get();
 
 </div>
 
+<div class="clearfix"></div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-left">Website created by Shane Egan and David Richer</p>
+	<p class="pull-right">&copy; 2015</p>
+  </div>
+</footer>
+
 <!-- JS -->
 <?php
 

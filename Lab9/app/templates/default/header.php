@@ -58,17 +58,24 @@ $hooks->run('afterBody');
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
+                        <a href="/Lab9/About/">About</a>
+                    </li>
+                    <?php if (\Helpers\Session::get('loggedin')) : ?>
+                    <li>
                         <a href="/Lab9/Courses/">Course Selection</a>
                     </li>
                     <li>
                         <a href="/Lab9/RegisteredCourses/">Current Registration</a>
                     </li>
                     <li>
-                        <a href="/Lab9/About/">About</a>
-                    </li>
-                    <?php if (\Helpers\Session::get('loggedin')) : ?>
-                    <li>
                         <a href="/Lab9/Logout">Logout</a>
+                    </li>
+                    <?php else : ?>
+                    <li>
+                        <a href="/Lab9/Login">Login</a>
+                    </li>
+                    <li>
+                        <a href="/Lab9/Register">Register</a>
                     </li>
                     <?php endif; ?>
                 </ul>
@@ -78,4 +85,4 @@ $hooks->run('afterBody');
         <!-- /.container -->
     </nav>
 
-<div class="container">
+<div class="container main">

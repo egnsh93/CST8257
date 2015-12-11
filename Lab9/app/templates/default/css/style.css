@@ -1,5 +1,32 @@
 /* Your styles here */
 
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+.main {
+  margin-bottom: 40px;
+}
+
+.footer p {
+	margin: 20px 0;
+}
+
+
 /* Credit to bootsnipp.com for the css for the color graph */
 .colorgraph {
   height: 5px;
