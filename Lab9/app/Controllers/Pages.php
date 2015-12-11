@@ -1,6 +1,6 @@
 <?php
 /**
- * Home controller
+ * Pages controller
  *
  * @author Shane Egan
  * @version 2.2
@@ -20,10 +20,6 @@ class Pages extends Controller
     public function __construct()
     {
         parent::__construct();
-
-        // On page load, redirect if not logged in
-        if (\Helpers\Session::get('loggedin') == false)
-            \Helpers\Url::redirect('Login');
     }
 
     /**
@@ -31,8 +27,7 @@ class Pages extends Controller
      */
     public function index()
     {
-        $data['title'] = 'Homepage';
-        $data['welcome_message'] = 'Welcome to the homepage';
+        $data['title'] = 'Welcome!';
 
         View::renderTemplate('header', $data);
         View::render('pages/index', $data);
