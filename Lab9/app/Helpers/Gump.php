@@ -363,21 +363,47 @@ class GUMP
 
         foreach ($ruleset as $field => $rules) {
 
-            $rules = explode('|', $rules);
-
+            $regexFound = strpos($rules, 'regex,');
+            $requiredFound = strpos($rules, 'required|');
+            if ($requiredFound !== false && $regexFound !== false) {                
+                $rules = explode('required|', $rules);
+                $rules = array('required', $rules[1]);
+            }elseif($regexFound !== false){
+                $rules = array($rules);
+            }else{                              
+                $rules = explode('|', $rules);                          
+            }
+            
             if (in_array('required', $rules) || (isset($input[$field]) && !is_array($input[$field]))) {
                 foreach ($rules as $rule) {
                     $method = null;
                     $param = null;
 
-                    // Check if we have rule parameters
-                    if (strstr($rule, ',') !== false) {
-                        $rule   = explode(',', $rule);
-                        $method = 'validate_'.$rule[0];
-                        $param  = $rule[1];
-                        $rule   = $rule[0];
-                    } else {
-                        $method = 'validate_'.$rule;
+                    if(strstr($rule, 'regex') !== FALSE){
+                        if(strstr($rule, 'regex,') !== FALSE) // has params
+                        {                                                                                                   
+                            $rule   = explode('regex,', $rule);                                                 
+                            $method = 'validate_regex';
+                            $param  = $rule[1];
+                            $rule   = 'regex';                          
+                        }
+                        else
+                        {
+                            $method = 'validate_'.$rule;
+                        }
+                    }else{
+                        if(strstr($rule, ',') !== FALSE) // has params
+                        {
+                            $rule   = explode(',', $rule);
+                            $method = 'validate_'.$rule[0];
+                            $param  = $rule[1];
+                            $rule   = $rule[0];
+                        }
+                        else
+                        {
+                            $method = 'validate_'.$rule;
+
+                        }
                     }
 
                     //self::$validation_methods[$rule] = $callback;
@@ -408,6 +434,7 @@ class GUMP
                     }
                 }
             }
+            
         }
 
         return (count($this->errors) > 0) ? $this->errors : true;
@@ -672,7 +699,7 @@ class GUMP
                     $resp[$field] = "The $field field needs to contain a valid human name";
                     break;
                 case 'validate_contains':
-                    $resp[$field] = "The $field field needs to contain one of these values: ".implode(', ', $param);
+                    $resp[$field] = "The $field field does not match";
                     break;
                 case 'validate_street_address':
                     $resp[$field] = "The $field field needs to be a valid street address";
@@ -2070,6 +2097,7 @@ class GUMP
         }
 
         $regex = $param;
+        
         if (!preg_match($regex, $input[$field])) {
             return array(
           'field' => $field,
