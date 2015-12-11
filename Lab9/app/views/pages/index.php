@@ -11,4 +11,9 @@ use Core\Language;
 	<h1><?php echo $data['title'] ?></h1>
 </div>
 
-<p><?php echo $data['welcome_message'] ?></p>
+<?php if (\Helpers\Session::get('loggedin') == false) : ?>
+	<p>In order to access our registration system, you must first <a href="/Lab9/Login/">login</a> or <a href="/Lab9/Register/">create an account</a></p>
+
+<?php else : ?>
+	<p>Under construction</p>
+<?php endif; ?>
