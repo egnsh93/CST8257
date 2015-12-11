@@ -12,6 +12,7 @@ use Core\Router;
 use Helpers\Hooks;
 
 /** Define routes. */
+Router::any('/', 'Controllers\Pages@index');
 Router::any('Home', 'Controllers\Pages@index');
 Router::any('Courses', 'Controllers\Course@index');
 Router::any('Confirmation', 'Controllers\Course@confirmation');
